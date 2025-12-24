@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+     {% load static %}
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- Include jQuery UI -->
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+    <!-- Include jQuery UI CSS -->
+    <link rel="stylesheet"
+          href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
+        <script src="{% static 'js/checkbox.js' %}"></script>
+        <script src="{% static 'js/datepicker.js' %}"></script>
+</head>
+<body>
+{% if request.session.role == None %}
+<h3>Hi, Guest</h3>
+<a href="/ORS/Welcome/"><b>Welcome</b></a> |
+<a href="/ORS/Login/"><b>Login</b></a>
+{% else %}
+<h3>Hi, {{request.session.user.firstName }} ( {{request.session.role}} ) </h3>
+<a href="/ORS/User/"><b>Add User</b></a> |
+<a href="/ORS/UserList/"><b>User List</b></a> |
+<a href="/ORS/Role/"><b>Add Role</b></a> |
+<a href="/ORS/RoleList/"><b>Role List</b></a> |
+<a href="/ORS/College/"><b>Add College</b></a> |
+<a href="/ORS/CollegeList/"><b>College List</b></a> |
+<a href="/ORS/Course/"><b>Add Course</b></a> |
+<a href="/ORS/CourseList/"><b>Course List</b></a> |
+<a href="/ORS/Subject/"><b>Add Subject</b></a> |
+<a href="/ORS/SubjectList/"><b>Subject List</b></a> |
+<a href="/ORS/Faculty/"><b>Add Faculty</b></a> |
+<a href="/ORS/FacultyList/"><b>Faculty List</b></a> |
+<a href="/ORS/Marksheet/"><b>Add Marksheet</b></a> |
+<a href="/ORS/MarksheetList/"><b>Marksheet List</b></a> |
+<a href="/ORS/MarksheetMeritList/"><b>Marksheet Merit List</b></a> |
+<a href="/ORS/Student/"><b>Add Student</b></a> |
+<a href="/ORS/StudentList/"><b>Student List</b></a> |
+<a href="/ORS/TimeTable/"><b>Add TimeTable</b></a> |
+<a href="/ORS/TimeTableList/"><b>TimeTable List</b></a> |
+<a href="/ORS/ChangePassword/"><b>Change Password</b></a> |
+<a href="/ORS/Logout/"><b>Logout</b></a>
+{% endif %}
+<hr>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    let selectAll = document.getElementById("selectall");
+    let checkboxes = document.getElementsByClassName("case");
+
+    // Select All
+    selectAll.onclick = function () {
+        for (let i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].checked = this.checked;
+        }
+    };
+
+    // Auto update Select All
+    for (let i = 0; i < checkboxes.length; i++) {
+        checkboxes[i].onclick = function () {
+            let checkedCount = 0;
+            for (let j = 0; j < checkboxes.length; j++) {
+                if (checkboxes[j].checked) {
+                    checkedCount++;
+                }
+            }
+            selectAll.checked = (checkedCount === checkboxes.length);
+        };
+    }
+});
+
+// Delete validation
+function validateDelete() {
+    let operation = event.submitter.value;
+    if (operation === "delete") {
+        let checked = document.querySelectorAll(".case:checked");
+        if (checked.length === 0) {
+            alert("Please select at least one record to delete");
+            return false;
+        }
+        return confirm("Are you sure you want to delete selected records?");
+    }
+    return true;
+}
+</script>
+</body>
+</html>

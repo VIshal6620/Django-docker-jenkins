@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+</head>
+<body>
+    {% include "Header.html" %}
+    <form method="POST">
+        {% csrf_token %}
+        <div align="center">
+            <h1>Add TimeTable</h1>
+
+            {% if form.error %}
+                <h3><font color="red"> {{ form.message }} </font></h3>
+            {% else %}
+                <h3><font color="green"> {{ form.message }} </font></h3>
+            {% endif %}
+            <table>
+                <input type="hidden" name="id" value="{{form.id}}">
+                <tr>
+                    <th>Exam Time:</th>
+                    <td>
+                         <select name="examTime"style="width: 100%;">
+                            <option>9:00AM to 1:00PM</option>
+                            <option>2:00PM to 4:00PM</option>
+                            <option>4:00PM to 7:00PM</option>
+                        </select>
+                    </td>
+                    <td style="position: fixed; color: red;">{{ form.inputError.examTime }}</td>
+                </tr>
+                <tr>
+                    <th>Exam Date:</th>
+                    <td><input type="date" name="examDate" value="{{form.examDate}}" style="width: 98%;"></td>
+                    <td style="position: fixed; color: red;">{{ form.inputError.examDate }}</td>
+                </tr>
+                <tr>
+                    <th>Course:</th>
+                    <td>
+                        <select name="courseId" style="width:100%">
+                            <option value="">Select Course</option>
+                            {% for course in courseList %}
+                            <option value="{{ course.id }}" {% if form.courseId|stringformat:"s" == course.id|stringformat:"s" %}selected{% endif %}>
+
+                            {{ course.name }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td style="color: red;">{{ form.inputError.courseId }}</td>
+                </tr>
+
+                <tr>
+                    <th>Subject:</th>
+                    <td>
+                        <select name="subjectId" style="width:100%">
+                            <option value="">Select Subject</option>
+                            {% for subject in subjectList %}
+                            <option value="{{ subject.id }}" {% if form.subjectId|stringformat:"s" == subject.id|stringformat:"s" %}selected{% endif %}>
+                            {{ subject.name }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td style="color: red;">{{ form.inputError.subjectId }}</td>
+                </tr>
+                <tr>
+                    <th>Semester:</th>
+                    <td>
+                        <select name="semester" style="width:100%">
+                            <option value="">Select Semester</option>
+                            <option value="1" {% if form.semester|stringformat:"s" == "1" %}selected{% endif %}>1</option>
+
+                            <option value="2" {% if form.semester|stringformat:"s" == "2" %}selected{% endif %}>2</option>
+
+                            <option value="3" {% if form.semester|stringformat:"s" == "3" %}selected{% endif %}>3</option>
+
+                            <option value="4" {% if form.semester|stringformat:"s" == "4" %}selected{% endif %}>4</option>
+
+                            <option value="5" {% if form.semester|stringformat:"s" == "5" %}selected{% endif %}>5</option>
+
+                            <option value="6" {% if form.semester|stringformat:"s" == "6" %}selected{% endif %}>6</option>
+
+                            <option value="7" {% if form.semester|stringformat:"s" == "7" %}selected{% endif %}>7</option>
+
+                            <option value="8" {% if form.semester|stringformat:"s" == "8" %}selected{% endif %}>8</option>
+
+                        </select>
+                    </td>
+                    <td style="color: red;">{{ form.inputError.semester }}</td>
+                </tr>
+
+                <tr>
+                    <th></th>
+                    <td><input type="submit" value="save"></td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</body>
+{%include "Footer.html"%}
+</html>
