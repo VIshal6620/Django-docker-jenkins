@@ -57,8 +57,8 @@ class PurchaseOrderListCtl(BaseCtl):
         else:
             for id in self.form['ids']:
                 id = int(id)
-                college = self.get_service().get(id)
-                if college:
+                purchaseorder = self.get_service().get(id)
+                if purchaseorder:
                     self.get_service().delete(id)
                     self.form['error'] = False
                     self.form['message'] = "Data has been deleted successfully"
