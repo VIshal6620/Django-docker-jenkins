@@ -38,13 +38,13 @@ class PurchaseOrderCtl(BaseCtl):
         super().input_validation()
         inputError = self.form['inputError']
 
-        if (DataValidator.isNull(self.form['totalQuantity'])):
+        if DataValidator.isNull(self.form['totalQuantity']):
             inputError['totalQuantity'] = "totalQuantity is required"
             self.form['error'] = True
-        else:
-            if (DataValidator.ischeck(self.form['totalQuantity'])):
-                inputError['totalQuantity'] = "totalQuantity contains only letters"
-                self.form['error'] = True
+
+        elif not DataValidator.isInteger(self.form['totalQuantity']):
+            inputError['totalQuantity'] = "totalQuantity must be numeric"
+            self.form['error'] = True
 
         if (DataValidator.isNull(self.form['product'])):
             inputError['product'] = "product is required"
