@@ -78,13 +78,13 @@ WSGI_APPLICATION = 'SOS.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-     'default': {
+    'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'project-20',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
+        'NAME': os.getenv('DB_NAME', 'project-20'),
+        'USER': os.getenv('DB_USER', 'root'),
+        'PASSWORD': os.getenv('DB_PASSWORD', 'root'),
+        'HOST': os.getenv('DB_HOST', 'db'),
+        'PORT': os.getenv('DB_PORT', '3306'),
     }
 }
 
