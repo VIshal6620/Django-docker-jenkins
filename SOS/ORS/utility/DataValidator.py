@@ -74,7 +74,7 @@ class DataValidator:
         else:
             return True
 
-     @staticmethod
+    @staticmethod
     def isNull(value):
         return value is None or str(value).strip() == ""
 
