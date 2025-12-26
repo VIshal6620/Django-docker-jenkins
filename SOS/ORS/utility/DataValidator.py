@@ -73,3 +73,19 @@ class DataValidator:
             return False
         else:
             return True
+
+     @staticmethod
+    def isNull(value):
+        return value is None or str(value).strip() == ""
+
+    @staticmethod
+    def isInteger(value):
+        if DataValidator.isNull(value):
+            return False
+        return re.fullmatch(r'[1-9][0-9]*', str(value)) is not None
+
+    @staticmethod
+    def isNumber(value):
+        if DataValidator.isNull(value):
+            return False
+        return re.fullmatch(r'[0-9]+(\.[0-9]{1,2})?', str(value)) is not None
